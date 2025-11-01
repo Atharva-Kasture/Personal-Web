@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atharva Kasture</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class = "rounded" id="skills">
+      <span>Skills</span>
+      <div class="skills-container">
+        <!-- Programming Languages -->
+         <section class="skill-section" id="languages">
+            <h3>Programming Languages</h3>
+            <div class="skills-scroll">
+              <div class="skill-item"><img src="icons/python.svg" alt="Python"><span>Python</span></div>
+              <div class="skill-item"><img src="icons/javascript.svg" alt="JavaScript"><span>JavaScript</span></div>
+              <div class="skill-item"><img src="icons/cplusplus.svg" alt="C++"><span>C++</span></div>
+              <div class="skill-item"><img src="icons/html5.svg" alt="HTML"><span>HTML</span></div>
+              <div class="skill-item"><img src="icons/css.svg" alt="CSS"><span>CSS</span></div>
+              <div class="skill-item"><img src="icons/mysql.svg" alt="SQL"><span>SQL</span></div>
+            </div>
+          </section>
+
+          <!-- Frameworks -->
+          <section class="skill-section" id="frameworks">
+            <h3>Frameworks</h3>
+            <div class="skills-scroll">
+              <div class="skill-item"><img src="icons/react.svg" alt="React"><span>React</span></div>
+              <div class="skill-item"><img src="icons/nodedotjs.svg" alt="Node.js"><span>Node.js</span></div>
+              <div class="skill-item"><img src="icons/express.svg" alt="Express"><span>Express</span></div>
+              <div class="skill-item"><img src="icons/bootstrap.svg" alt="Bootstrap"><span>Bootstrap</span></div>
+            </div>
+          </section>
+
+          <!-- Tools -->
+          <section class="skill-section" id="tools">
+            <h3>Tools</h3>
+            <div class="skills-scroll">
+              <div class="skill-item"><img src="icons/git.svg" alt="Git"><span>Git</span></div>
+              <div class="skill-item"><img src="icons/github.svg" alt="GitHub"><span>GitHub</span></div>
+              <div class="skill-item"><img src="icons/postman.svg" alt="Postman"><span>Postman</span></div>
+              <div class="skill-item"><img src="icons/uml.svg" alt="UML"><span>UML</span></div>
+              <div class="skill-item"><img src="" alt="agile"><span>Agile/Scrum</span></div>
+            </div>
+          </section>
+
+          <!-- Databases -->
+          <section class="skill-section" id="databases">
+            <h3>Databases</h3>
+            <div class="skills-scroll">
+              <div class="skill-item"><img src="icons/mysql.svg" alt="PostgresSQL"><span>MySQL</span></div>
+              <div class="skill-item"><img src="icons/mongodb.svg" alt="MongoDB"><span>MongoDB</span></div>
+              <div class="skill-item"><img src="icons/mongodb.svg" alt="DynamoDB"><span>DynamoDB</span></div>
+
+            </div>
+          </section>
+      </div>
+    </div>
+    <div class = "rounded" id="projects"><span>Projects</span></div>
+    <div class = "rounded" id="about"><span>About Me</span></div>
+    <div class = "rounded" id = "certifications"><span>Certifications</span></div>
+    <div class = "rounded" id = "contact"><span>Contact</span></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+    <script>
+      VANTA.NET({
+        el: "body",                 // Apply to the whole body
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x6b510a,            // Line color (your gold accent)
+        backgroundColor: 0x000000,  // Background color (your theme)
+        points: 10.00,              // Number of points (density)
+        maxDistance: 25.00,         // Line connection distance
+        spacing: 20.00              // Distance between points
+      })
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
