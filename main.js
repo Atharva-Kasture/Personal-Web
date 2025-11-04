@@ -1,12 +1,16 @@
 $(document).ready(function () {
-  // Card hover expansion
+  /* =========================================
+     BOX EXPANSION ON HOVER
+  ========================================= */
   $(".rounded").on("mouseenter", function () {
     $(this).addClass("expanded");
   }).on("mouseleave", function () {
     $(this).removeClass("expanded");
   });
 
-  // Shared function for creating navigation arrows
+  /* =========================================
+     ADD NAVIGATION ARROWS (IF NOT PRESENT)
+  ========================================= */
   function addArrows(container) {
     if (!container.find(".nav-arrows").length) {
       container.append(`
@@ -18,7 +22,9 @@ $(document).ready(function () {
     }
   }
 
-  // Generic navigation setup
+  /* =========================================
+     GENERIC MANUAL NAVIGATION (SKILLS, CERTS, CONTACT)
+  ========================================= */
   function setupManualNavigation(containerId) {
     const container = $(containerId);
     const sections = container.find(".content-section");
@@ -30,16 +36,19 @@ $(document).ready(function () {
       sections.removeClass("active").eq(index).addClass("active");
     }
 
+    // Show first section on hover
     container.on("mouseenter", function () {
       showSection(current);
     });
 
+    // Left arrow
     container.find(".arrow.left").on("click", function (e) {
       e.stopPropagation();
       current = (current - 1 + sections.length) % sections.length;
       showSection(current);
     });
 
+    // Right arrow
     container.find(".arrow.right").on("click", function (e) {
       e.stopPropagation();
       current = (current + 1) % sections.length;
@@ -47,80 +56,70 @@ $(document).ready(function () {
     });
   }
 
-  // Apply to each group
   setupManualNavigation("#skills");
   setupManualNavigation("#contact");
   setupManualNavigation("#certifications");
 
-  // -----------------------------------------
-  // Projects ↔ About synchronization
-  // -----------------------------------------
+  /* =========================================
+     PROJECT ↔ ABOUT BOX SYNC BEHAVIOR
+  ========================================= */
   const aboutBox = $("#about");
   const aboutSpan = $("#about span");
   const aboutHint = $("#about .hover-hint");
+  const aboutImages = $("#about img"); // All project images preloaded inside About box
+  const aboutTitle = $("<h5 id='about-project-title'></h5>")
+    .css({
+      display: "none",
+      textAlign: "center",
+      color: "rgb(201,162,46)",
+      marginBottom: "10px",
+    })
+    .appendTo(aboutBox);
+
   const projectSections = $("#projects .content-section");
+  let currentProject = 0;
 
-  if (!$("#about-project-title").length)
-    aboutBox.append('<h5 id="about-project-title" style="display:none;text-align:center;color:rgb(201,162,46);margin-bottom:10px;"></h5>');
-  if (!$("#about-sync-image").length)
-    aboutBox.append('<img id="about-sync-image" style="display:none;width:250px;border-radius:10px;box-shadow:0 0 15px rgba(201,162,46,0.4);margin:10px auto;">');
-
-  const aboutImage = $("#about-sync-image");
-  const aboutTitle = $("#about-project-title");
-  let current = 0;
-  let projectImages = [];
-  let projectTitles = [];
-
-  function rebuildProjectData() {
-    projectTitles = projectSections.map(function () {
-      return $(this).find("h5").first().text().trim();
-    }).get();
-
-    projectImages = $("#projects .content-item img").map(function () {
-      const src = $(this).attr("src") || "";
-      return src.includes("icons/") ? null : src;
-    }).get().filter(Boolean);
-  }
-
-  function showProject(index) {
-    projectSections.removeClass("active").eq(index).addClass("active");
-    const imgSrc = projectImages[index];
-    const title = projectTitles[index] || "";
-
-    aboutTitle.text(title).fadeIn(200);
-    imgSrc ? aboutImage.attr("src", imgSrc).fadeIn(250) : aboutImage.hide();
-  }
-
-  // Manual navigation for projects
+  // Add arrows for project box
   const projects = $("#projects");
   addArrows(projects);
 
+  // Helper to show specific project + image
+  function showProject(index) {
+    projectSections.removeClass("active").eq(index).addClass("active");
+    aboutImages.hide().eq(index).fadeIn(300); // show matching image
+    const title = projectSections.eq(index).find("h5").text();
+    aboutTitle.text(title).fadeIn(200);
+  }
+
+  // When hovering over Projects box
   projects.on("mouseenter", function () {
-    rebuildProjectData();
-    current = 0;
+    currentProject = 0;
     aboutBox.addClass("expanded");
     aboutSpan.hide();
     aboutHint.hide();
-    showProject(current);
+    showProject(currentProject);
   });
 
+  // Click arrows for Projects
   projects.find(".arrow.left").on("click", function (e) {
     e.stopPropagation();
-    current = (current - 1 + projectSections.length) % projectSections.length;
-    showProject(current);
+    currentProject = (currentProject - 1 + projectSections.length) % projectSections.length;
+    showProject(currentProject);
   });
 
   projects.find(".arrow.right").on("click", function (e) {
     e.stopPropagation();
-    current = (current + 1) % projectSections.length;
-    showProject(current);
+    currentProject = (currentProject + 1) % projectSections.length;
+    showProject(currentProject);
   });
 
+  // When leaving Projects box
   projects.on("mouseleave", function () {
     projectSections.removeClass("active");
-    aboutImage.hide();
+    aboutImages.hide();
     aboutTitle.hide();
 
+    // Reset About box only if not hovered directly
     if (!aboutBox.is(":hover")) {
       aboutBox.removeClass("expanded");
       aboutSpan.show();
@@ -128,8 +127,9 @@ $(document).ready(function () {
     }
   });
 
+  // When hovering directly on About box (reset to default)
   aboutBox.on("mouseenter", function () {
-    aboutImage.hide();
+    aboutImages.hide();
     aboutTitle.hide();
     aboutSpan.show();
     aboutHint.show();

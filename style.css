@@ -1,3 +1,6 @@
+/* =========================================
+   GLOBAL STYLES & BASE SETUP
+========================================= */
 body {
   margin: 0;
   height: 100vh;
@@ -7,6 +10,9 @@ body {
   overflow: auto;
 }
 
+/* =========================================
+   BOX CONTAINERS (ROUNDED SECTIONS)
+========================================= */
 .rounded {
   position: absolute;
   display: flex;
@@ -24,6 +30,9 @@ body {
   overflow: hidden;
 }
 
+/* =========================================
+   BOX TITLES & EXPANSION STATE
+========================================= */
 .rounded span {
   font-weight: 600;
   font-size: 1.2rem;
@@ -47,45 +56,29 @@ body {
   margin-bottom: 3px; 
 }
 
+/* =========================================
+   HOVER EFFECTS (GLOW, SCALE, TEXT)
+========================================= */
 .rounded:hover { 
   transform: scale(1.05); 
   box-shadow: 0 0 35px rgba(107,81,10,0.6); 
 }
 
-.rounded:hover #projectTitle { 
-  opacity: 0; 
-}
+.rounded:hover #projectTitle,
+.rounded:hover #welcome { opacity: 0; }
 
-.rounded:hover #welcome { 
-  opacity: 0; 
-}
+/* =========================================
+   BOX POSITIONING
+========================================= */
+#skills { top: 2%; left: 2%; }
+#projects { top: 2%; right: 2%; }
+#certifications { bottom: 2%; left: 2%; }
+#contact { bottom: 2%; right: 2%; }
+#about { top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
-#skills { 
-  top: 2%; 
-  left: 2%; 
-}
-
-#projects { 
-  top: 2%; 
-  right: 2%; 
-}
-
-#certifications { 
-  bottom: 2%; 
-  left: 2%; 
-}
-
-#contact { 
-  bottom: 2%; 
-  right: 2%; 
-}
-
-#about { 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-}
-
+/* =========================================
+   CONTENT CONTAINERS & FADE-IN TRANSITION
+========================================= */
 .content-container {
   display: none;
   opacity: 0;
@@ -100,12 +93,18 @@ body {
   opacity: 1; 
 }
 
+/* =========================================
+   SECTION TITLES
+========================================= */
 .content-section h5 {
   margin: 0 0 10px 0;
   color: #c9a22e;
   text-align: center;
 }
 
+/* =========================================
+   SCROLLABLE CONTENT AREA
+========================================= */
 .content-scroll {
   display: flex;
   flex-wrap: wrap;
@@ -115,6 +114,29 @@ body {
   overflow-y: auto;
 }
 
+/* ===== SCROLLBAR STYLING ===== */
+.content-scroll::-webkit-scrollbar {
+  width: 5px;              
+}
+
+.content-scroll::-webkit-scrollbar-track {
+  background: rgba(20, 26, 39, 0.3); 
+  border-radius: 5px;
+}
+
+.content-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c9a22e, #a8831b);
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(201,162,46,0.6);
+}
+
+.content-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e5bf45, #c9a22e);
+}
+
+/* =========================================
+   INDIVIDUAL CONTENT ITEMS (ICONS, TEXT)
+========================================= */
 .content-item {
   flex: 0 0 80px;
   display: flex;
@@ -133,11 +155,27 @@ body {
   filter: invert(80%) sepia(60%) saturate(400%) hue-rotate(15deg) brightness(1.2);
 }
 
-.content-item:hover { transform: scale(1.1); filter: brightness(1.3); }
+.content-item:hover { 
+  transform: scale(1.1); 
+  filter: brightness(1.3); 
+}
 
-.content-section { display: none; opacity: 0; transition: opacity 0.8s ease-in-out; }
-.content-section.active { display: block; opacity: 1; }
+/* =========================================
+   SECTION VISIBILITY CONTROL
+========================================= */
+.content-section { 
+  display: none; 
+  opacity: 0; 
+  transition: opacity 0.8s ease-in-out; 
+}
+.content-section.active { 
+  display: block; 
+  opacity: 1; 
+}
 
+/* =========================================
+   PROJECT BOX STYLING
+========================================= */
 #projects .content-item {
   flex: 1 1 100%;
   max-width: 90%;
@@ -178,19 +216,36 @@ body {
   transition: all 0.3s ease;
 }
 
-#projects .content-item a:hover { background-color: #c9a22e; color: #000; transform: scale(1.05); }
+#projects .content-item a:hover { 
+  background-color: #c9a22e; 
+  color: #000; 
+  transform: scale(1.05); 
+}
 
-.hover-hint { font-size: 0.8rem; color: #c9a22e; margin-top: 6px; font-style: italic; }
+/* =========================================
+   HOVER HINT TEXT
+========================================= */
+.hover-hint { 
+  font-size: 0.8rem; 
+  color: #c9a22e; 
+  margin-top: 6px; 
+  font-style: italic; 
+}
 .rounded:hover .hover-hint { opacity: 0; }
 
+/* =========================================
+   BOX HEADINGS (CONTACT / CERTS / PROJECTS)
+========================================= */
 #contact h5, #certifications h5 { margin: 20px 0; }
 #projects h5 { margin-top: -50px; }
 
+/* =========================================
+   ABOUT BOX (IMAGE + TITLE)
+========================================= */
 #about-project-title {
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  
 }
 
 #about-sync-image {
@@ -198,10 +253,12 @@ body {
   width: 250px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(201,162,46,0.4);
-  margin: 40px auto 10px auto; /* Added top margin for spacing */
+  margin: 40px auto 10px auto;
 }
 
-/* ===== Navigation Arrows ===== */
+/* =========================================
+   NAVIGATION ARROWS
+========================================= */
 .nav-arrows {
   position: absolute;
   top: 50%;                         
@@ -223,8 +280,8 @@ body {
 }
 
 .nav-arrows .arrow { 
-  background-color: #c9a22e; /* gold background */ 
-  color: #fff; /* white arrow */ 
+  background-color: #c9a22e; 
+  color: #fff; 
   font-size: 1.3rem; 
   font-weight: bold; 
   width: 34px; 
@@ -244,8 +301,19 @@ body {
   box-shadow: 0 0 12px rgba(201,162,46,0.9); 
 }
 
-.project-images {
-  width: 350px;
-  margin-top: 100px;
-  height: 500px;
+/* =========================================
+   ABOUT IMAGES (SHOW/HIDE LOGIC)
+========================================= */
+#about-images .about-image {
+  display: none;
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(201,162,46,0.4);
+  margin: 40px auto 10px auto;
+}
+
+#about-images .about-image.active {
+  display: block;
 }
