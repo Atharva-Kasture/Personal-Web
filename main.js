@@ -63,77 +63,92 @@ $(document).ready(function () {
   /* =========================================
      PROJECT ↔ ABOUT BOX SYNC BEHAVIOR
   ========================================= */
-  const aboutBox = $("#about");
-  const aboutSpan = $("#about span");
-  const aboutHint = $("#about .hover-hint");
-  const aboutImages = $("#about img"); // All project images preloaded inside About box
-  const aboutTitle = $("<h5 id='about-project-title'></h5>")
-    .css({
-      display: "none",
-      textAlign: "center",
-      color: "rgb(201,162,46)",
-      marginBottom: "10px",
-    })
-    .appendTo(aboutBox);
+/* =========================================
+   PROJECT ↔ ABOUT BOX SYNC BEHAVIOR
+========================================= */
+const aboutBox = $("#about");
+const aboutSpan = $("#about span");
+const aboutHint = $("#about .hover-hint");
+const aboutTitle = $("<h5 id='about-project-title'></h5>")
+  .css({
+    display: "none",
+    textAlign: "center",
+    color: "rgb(201,162,46)",
+    marginBottom: "10px",
+  })
+  .appendTo(aboutBox);
 
-  const projectSections = $("#projects .content-section");
-  let currentProject = 0;
+// Only select project images (not profile image)
+const aboutImages = $("#about-images .about-image");
+const projectSections = $("#projects .content-section");
+let currentProject = 0;
 
-  // Add arrows for project box
-  const projects = $("#projects");
-  addArrows(projects);
+// Add arrows to Projects box
+const projects = $("#projects");
+addArrows(projects);
 
-  // Helper to show specific project + image
-  function showProject(index) {
-    projectSections.removeClass("active").eq(index).addClass("active");
-    aboutImages.hide().eq(index).fadeIn(300); // show matching image
-    const title = projectSections.eq(index).find("h5").text();
-    aboutTitle.text(title).fadeIn(200);
-  }
+// Helper to show specific project + matching image
+function showProject(index) {
+  projectSections.removeClass("active").eq(index).addClass("active");
+  aboutImages.removeClass("active").eq(index).addClass("active");
+  const title = projectSections.eq(index).find("h5").text();
+  aboutTitle.text(title).fadeIn(200);
+}
 
-  // When hovering over Projects box
-  projects.on("mouseenter", function () {
-    currentProject = 0;
-    aboutBox.addClass("expanded");
-    aboutSpan.hide();
-    aboutHint.hide();
-    showProject(currentProject);
-  });
+// Hovering over Projects box
+projects.on("mouseenter", function () {
+  currentProject = 0;
+  aboutBox.addClass("expanded");
+  aboutSpan.hide();
+  aboutHint.hide();
 
-  // Click arrows for Projects
-  projects.find(".arrow.left").on("click", function (e) {
-    e.stopPropagation();
-    currentProject = (currentProject - 1 + projectSections.length) % projectSections.length;
-    showProject(currentProject);
-  });
+  // Hide About Me content
+  $("#about-me").hide();
 
-  projects.find(".arrow.right").on("click", function (e) {
-    e.stopPropagation();
-    currentProject = (currentProject + 1) % projectSections.length;
-    showProject(currentProject);
-  });
+  showProject(currentProject);
+});
 
-  // When leaving Projects box
-  projects.on("mouseleave", function () {
-    projectSections.removeClass("active");
-    aboutImages.hide();
-    aboutTitle.hide();
+// Left arrow click
+projects.find(".arrow.left").on("click", function (e) {
+  e.stopPropagation();
+  currentProject = (currentProject - 1 + projectSections.length) % projectSections.length;
+  showProject(currentProject);
+});
 
-    // Reset About box only if not hovered directly
-    if (!aboutBox.is(":hover")) {
-      aboutBox.removeClass("expanded");
-      aboutSpan.show();
-      aboutHint.show();
-    }
-  });
+// Right arrow click
+projects.find(".arrow.right").on("click", function (e) {
+  e.stopPropagation();
+  currentProject = (currentProject + 1) % projectSections.length;
+  showProject(currentProject);
+});
 
-  // When hovering directly on About box (reset to default)
-  aboutBox.on("mouseenter", function () {
-    aboutImages.hide();
-    aboutTitle.hide();
+// Leaving Projects box
+projects.on("mouseleave", function () {
+  projectSections.removeClass("active");
+  aboutImages.removeClass("active");
+  aboutTitle.hide();
+
+  // Reset About box only if not hovered directly
+  if (!aboutBox.is(":hover")) {
+    aboutBox.removeClass("expanded");
     aboutSpan.show();
     aboutHint.show();
-  }).on("mouseleave", function () {
-    $(this).removeClass("expanded");
-  });
+
+    // Hide About Me to restore default Welcome text
+    $("#about-me").hide();
+  }
+});
+
+
+// Hovering directly on About box (shows About Me)
+aboutBox.on("mouseenter", function () {
+  aboutImages.removeClass("active");
+  aboutTitle.hide();
+  aboutSpan.show();
+  aboutHint.show();
+  $("#about-me").show(); // Ensure About Me content visible
+}).on("mouseleave", function () {
+  $(this).removeClass("expanded");
+});
+
 });
